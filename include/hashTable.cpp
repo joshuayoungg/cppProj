@@ -18,7 +18,25 @@ public:
     void insertItem(int, string);
     void removeItem(int);
     string findItem(int);
+    void printTable();
 };
+
+void HashTable::printTable()
+{
+    cout << "[Print Start]" << endl;
+    for (int i = 0; i < hashGroups; i++)
+    {
+        if (table[i].size() == 0)
+            continue;
+
+        auto bItr = begin(table[i]);
+        for (; bItr != end(table[i]); bItr++)
+        {
+            cout << "[INFO] Key: " << bItr->first << " Value: " << bItr->second << endl;
+        }
+    }
+    cout << "[Print End]" << endl;
+}
 
 bool HashTable::isEmpty() const
 {
@@ -70,7 +88,7 @@ void HashTable::removeItem(int key)
     auto &cell = table[hashValue];
     auto bItr = findHelper(key);
 
-    if (bItr && bItr->first != -1)
+    if (bItr)
     {
         cell.remove(*bItr);
         length--;
